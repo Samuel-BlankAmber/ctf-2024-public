@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-proj-KAINOS{n3v3r_c0mm1t_y0ur_k3ys!}")
+client = OpenAI(api_key="REDACTED")
 
 completion = client.chat.completions.create(
     model="gpt-4o-mini",
