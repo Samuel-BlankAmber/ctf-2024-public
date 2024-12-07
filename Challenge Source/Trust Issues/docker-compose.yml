@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: trust-issues
+    labels:
+    - "category=Outdated Components"
+    - "challenge=Trust Issues"
+    ports:
+      - 5008:5000
+    restart: always

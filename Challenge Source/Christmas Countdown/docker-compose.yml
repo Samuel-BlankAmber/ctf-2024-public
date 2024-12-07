@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: christmas-countdown
+    labels:
+    - "category=Authentication Failures"
+    - "challenge=Christmas Countdown"
+    ports:
+      - 5009:5000
+    restart: always
