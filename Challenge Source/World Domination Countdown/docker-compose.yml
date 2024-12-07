@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: world-domination-countdown
+    labels:
+    - "category=Authentication Failures"
+    - "challenge=World Domination Countdown"
+    ports:
+      - 5009:5000
+    restart: always

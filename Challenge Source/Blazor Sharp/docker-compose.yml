@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: blazor-sharp
+    labels:
+    - "category=Security Misconfiguration"
+    - "challenge=Blazor Sharp"
+    ports:
+      - 5010:8080
+    restart: always

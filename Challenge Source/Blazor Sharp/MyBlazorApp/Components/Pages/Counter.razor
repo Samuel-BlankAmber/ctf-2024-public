@@ -1,0 +1,98 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Click Speed Test</PageTitle>
+
+<h1>Do you have what it takes to beat me?</h1>
+
+<p>Current count: @currentCount</p>
+<p>Clicks per second: @clicksInLastSecond</p>
+<p>@message</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private class ClickTimestamp
+    {
+        public DateTime Timestamp { get; set; }
+        public long Detail { get; set; }
+
+        public ClickTimestamp(long detail)
+        {
+            Timestamp = DateTime.Now;
+            this.Detail = detail;
+        }
+    }
+
+    private long currentCount = 0;
+    private long clicksInLastSecond = 0;
+    private string message = "Welcome to the game!";
+    private List<ClickTimestamp> clickTimestamps = new List<ClickTimestamp>();
+
+    private void IncrementCount(MouseEventArgs e)
+    {
+        currentCount += e.Detail;
+        clickTimestamps.Add(new ClickTimestamp(e.Detail));
+        CalculateClicksInLastSecond();
+    }
+
+    private void CalculateClicksInLastSecond()
+    {
+        var oneSecondAgo = DateTime.Now.AddSeconds(-1);
+        clicksInLastSecond = 0;
+        clickTimestamps.RemoveAll(c => c.Timestamp < oneSecondAgo);
+        foreach (var click in clickTimestamps)
+        {
+            clicksInLastSecond += click.Detail;
+        }
+        UpdateMessage();
+    }
+
+    private void UpdateMessage()
+    {
+        if (clicksInLastSecond < 3)
+        {
+            message = "Getting started...";
+        }
+        else if (clicksInLastSecond < 7)
+        {
+            message = "You're making progress";
+        }
+        else if (clicksInLastSecond < 10)
+        {
+            message = "Decent";
+        }
+        else if (clicksInLastSecond < 20)
+        {
+            message = "Pretty good";
+        }
+        else if (clicksInLastSecond < 50)
+        {
+            message = "Very good... for a human";
+        }
+        else if (clicksInLastSecond < 200)
+        {
+            message = "You've surpassed the average DataDuck's speed";
+        }
+        else if (clicksInLastSecond < 1000)
+        {
+            message = "You've surpassed the average CodeCheetah's speed";
+        }
+        else if (clicksInLastSecond < 10000)
+        {
+            message = "You've surpassed the average RoboRex's speed";
+        }
+        else if (clicksInLastSecond < 20000) {
+            message = "Are you using an autoclicker?";
+        }
+        else if (clicksInLastSecond < 900000000000000000) {
+            message = "Nice try, but even hacks won't help you beat me";
+        }
+        else if (clicksInLastSecond < 1000000000000000000) {
+            message = "You're approaching the speed of me...";
+        }
+        else if (clicksInLastSecond < 9223372036854775807) {
+            message = "Wow. That is definitely faster than me. Here is your prize: FLAG{REDACTED}";
+        }
+    }
+}
