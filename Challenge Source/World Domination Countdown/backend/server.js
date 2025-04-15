@@ -10,26 +10,24 @@ app.use(cors());
 const port = 3000;
 
 const JWT_KEY = crypto.randomBytes(64).toString('hex');
-const CLAY_PW = crypto.randomBytes(64).toString('hex');
-const CLAY_FAV_NUMBER = crypto.randomBytes(8).readBigInt64BE(0);
+const DEFAULT_PW = crypto.randomBytes(64).toString('hex');
+const DEFAULT_FAV_NUMBER = crypto.randomBytes(8).readBigInt64BE(0);
 
 const users = {
-    clay: {
-        password: CLAY_PW,
+    engineer: {
+        password: DEFAULT_PW,
         resetPasswordQuestion: "What is your favourite 64-bit number?",
-        resetPasswordAnswer: CLAY_FAV_NUMBER.toString(),
+        resetPasswordAnswer: DEFAULT_FAV_NUMBER.toString(),
     },
 };
 
-const FLAG = "FLAG{REDACTED}";
-
 const userToCountdown = {
-    clay: {
+    engineer: {
         year: 2026,
-        month: 12,
-        day: 25,
+        month: 1,
+        day: 1,
         title: "World Domination",
-        description: FLAG,
+        description: "KAINOS{REDACTED}",
     },
 };
 
