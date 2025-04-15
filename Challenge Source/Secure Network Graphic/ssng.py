@@ -21,7 +21,7 @@ class SSNG():
         - 4-byte height
         - Compressed pixel data chunks
         """
-        encoded_data = b"ENCODER"
+        encoded_data = b"SANTA"
         encoded_data += width.to_bytes(4) + height.to_bytes(4)
 
         CHUNK_SIZE = 97 # My favourite prime number
@@ -37,8 +37,8 @@ class SSNG():
                         data += (count ^ 0b10000000).to_bytes(1) + (-value).to_bytes(1)
                     else:
                         data += count.to_bytes(1) + value.to_bytes(1)
-                data += b"\x00DECODER"
-            encoded_data += data + b"\x00CODER" + md5(data).digest()
+                data += b"\x00ELF"
+            encoded_data += data + b"\x00XMAS" + md5(data).digest()
         self._encoded_data = encoded_data
 
     def save(self, file_name):
