@@ -2,7 +2,6 @@
 
 import os
 from crypto import rng
-from time import sleep
 
 FLAG = os.getenv("FLAG", "KAINOS{fake_flag}")
 
