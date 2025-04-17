@@ -1,0 +1,20 @@
+services:
+  limited_sqli:
+    build: .
+    container_name: limited-sqli
+    labels:
+    - "category=Expert+"
+    - "challenge=Limited SQLi"
+    ports:
+      - 5016:5000
+    environment:
+      - FLASK_ENV=production
+      - SSL_CERT_PATH=/certs/fullchain.pem
+      - SSL_KEY_PATH=/certs/privkey.pem
+    restart: always
+    volumes:
+      - certs:/certs
+
+volumes:
+  certs:
+    external: true

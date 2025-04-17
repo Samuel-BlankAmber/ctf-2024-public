@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limited SQLi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-5xl p-8 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold text-center mb-10">Welcome to my Second Website!</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Create Table</h2>
+                <form method="post" action="/create" class="space-y-4">
+                    <div>
+                        <label for="table_name" class="block text-sm font-medium text-gray-700">Table Name</label>
+                        <input 
+                            type="text" 
+                            id="table_name" 
+                            name="table_name" 
+                            required 
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        {% if flag_encrypted %}
+                            <p class="mt-1 text-sm text-gray-500">Encrypted flag: {{ flag_encrypted }}</p>
+                        {% endif %}
+                        {% if create_error %}
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ create_error }}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Create Table</button>
+                </form>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Search Table</h2>
+                <form method="get" action="/query" class="space-y-4">
+                    <div>
+                        <label for="table_name" class="block text-sm font-medium text-gray-700">Table Name</label>
+                        <input 
+                            type="text" 
+                            id="table_name" 
+                            name="table_name" 
+                            required 
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="item" class="block text-sm font-medium text-gray-700">Item</label>
+                        <input 
+                            type="text" 
+                            id="item" 
+                            name="item" 
+                            required 
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 {% if error %}border-red-500{% endif %}">
+                        {% if query_result %}
+                            <p class="mt-1 text-sm text-gray-500">Query Value: {{ query_result }}</p>
+                        {% endif %}
+                        {% if error %}
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ error }}
+                            </p>
+                        {% endif %}
+                        {% if query_error %}
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ query_error }}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Run Query</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
